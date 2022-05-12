@@ -61,6 +61,7 @@ button {
    display: flex;
    align-items: center;
    justify-content: flex-end;
+   
 }
 
 .bar {
@@ -131,7 +132,7 @@ header {
    font-size: 2.7rem;
 }
 
-.btn {
+.btn-launch {
    margin-top: 1rem;
    padding: 0.6rem 1.8rem;
    background-color: #1179e7;
@@ -142,7 +143,11 @@ header {
    cursor: pointer;
    text-decoration: none;
 }
-
+btn-launch:hover {
+   color: #111;
+   background: #39ff14;
+   box-shadow: 0 0 50px #39ff14;
+}
 .container.active .bar {
    transform: rotate(360deg);
    background-color: transparent;
@@ -300,3 +305,12 @@ ul {
 .container.active .main:hover {
    transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
 }
+
+.account-profile{
+   
+   cursor: pointer;
+}
+
+.about-dir:hover {
+   color: #e0dd2d;
+ }
