@@ -35,7 +35,7 @@ button {
    max-width: 72rem;
    width: 100%;
    margin: 0 auto;
-   padding: 0 2rem;
+   padding: 0 1rem;
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -58,10 +58,12 @@ button {
    height: 4rem;
    width: 3rem;
    cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: flex-end;
-   
+   -webkit-tap-highlight-color: transparent;
+   display: grid;
+   place-items: center;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
 }
 
 .bar {
@@ -91,6 +93,19 @@ button {
    transform: translateY(9px);
 }
 
+.container.active .bar {
+   transform: rotate(360deg);
+   background-color: transparent;
+}
+
+.container.active .bar:before {
+   transform: translateY(0) rotate(45deg);
+}
+
+.container.active .bar:after {
+   transform: translateY(0) rotate(-45deg);
+}
+
 .main {
    position: relative;
    width: 100%;
@@ -105,7 +120,7 @@ button {
 header {
    min-height: 100vh;
    width: 100%;
-   background: url("./Assets/bg.jpg") no-repeat top center / cover;
+   background: url("/src/Assets/bg.jpg") no-repeat top center / cover;
    position: relative;
 }
 
@@ -129,11 +144,17 @@ header {
 }
 
 .title {
-   font-size: 2.7rem;
+   font-size: clamp(1.5rem, calc(1.5vw + 1.5rem), 2.7rem);
+   margin-bottom: 1rem;
+   line-height: 3.5rem;
+   color: #ff0;
 }
 
+.inner p {
+   font-size: minmax(0.75rem, 1.25rem);
+}
 .btn-launch {
-   margin-top: 1rem;
+   margin-block: 1rem 2rem;
    padding: 0.6rem 1.8rem;
    background-color: #1179e7;
    border: none;
@@ -141,40 +162,13 @@ header {
    color: #fff;
    text-transform: uppercase;
    cursor: pointer;
+   -webkit-tap-highlight-color: transparent;
    text-decoration: none;
 }
 btn-launch:hover {
    color: #111;
    background: #39ff14;
    box-shadow: 0 0 50px #39ff14;
-}
-.container.active .bar {
-   transform: rotate(360deg);
-   background-color: transparent;
-}
-
-.container.active .bar:before {
-   transform: translateY(0) rotate(45deg);
-}
-
-.container.active .bar:after {
-   transform: translateY(0) rotate(-45deg);
-}
-
-.container.active .main {
-   animation: main-animation 0.5s ease;
-   cursor: pointer;
-   transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-}
-
-@keyframes main-animation {
-   from {
-      transform: translate(0);
-   }
-
-   to {
-      transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-   }
 }
 
 .links {
@@ -189,7 +183,19 @@ btn-launch:hover {
    align-items: center;
 }
 
-ul {
+@media (max-width: 767px) {
+   .links {
+      width: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #485461 0%, #28313b 74%);
+   }
+
+   .container.active .links {
+      z-index: 7;
+   }
+}
+
+li {
    list-style: none;
 }
 
@@ -260,61 +266,84 @@ ul {
    opacity: 0.1;
 }
 
-.container.active .shadow.one {
-   animation: shadow-one 0.6s ease-out;
-   transform: perspective(1300px) rotateY(20deg) translateZ(215px) scale(0.5);
-}
-
-@keyframes shadow-one {
-   0% {
-      transform: translate(0);
-   }
-
-   5% {
-      transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-   }
-
-   100% {
-      transform: perspective(1300px) rotateY(20deg) translateZ(215px) scale(0.5);
-   }
-}
-
-.container.active .shadow.two {
-   animation: shadow-two 0.6s ease-out;
-   transform: perspective(1300px) rotateY(20deg) translateZ(120px) scale(0.5);
-}
-
-@keyframes shadow-two {
-   0% {
-      transform: translate(0);
-   }
-
-   20% {
-      transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-   }
-
-   100% {
-      transform: perspective(1300px) rotateY(20deg) translateZ(120px) scale(0.5);
-   }
-}
-
-.container.active .main:hover + .shadow.one {
-   transform: perspective(1300px) rotateY(20deg) translateZ(230px) scale(0.5);
-}
-
-.container.active .main:hover {
-   transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
-}
-
-.account-profile{
-   
+.account-profile {
    cursor: pointer;
+   -webkit-tap-highlight-color: transparent;
 }
 
 .about-dir:hover {
    color: #e0dd2d;
- }
+}
 
- .links::hover{
-    text-decoration: underline;
- }
+.links::hover {
+   text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+   .container.active .main {
+      animation: main-animation 0.5s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
+   }
+
+   @keyframes main-animation {
+      from {
+         transform: translate(0);
+      }
+
+      to {
+         transform: perspective(1300px) rotateY(20deg) translateZ(310px)
+            scale(0.5);
+      }
+   }
+   .container.active .shadow.one {
+      animation: shadow-one 0.6s ease-out;
+      transform: perspective(1300px) rotateY(20deg) translateZ(215px) scale(0.5);
+   }
+
+   @keyframes shadow-one {
+      0% {
+         transform: translate(0);
+      }
+
+      5% {
+         transform: perspective(1300px) rotateY(20deg) translateZ(310px)
+            scale(0.5);
+      }
+
+      100% {
+         transform: perspective(1300px) rotateY(20deg) translateZ(215px)
+            scale(0.5);
+      }
+   }
+
+   .container.active .shadow.two {
+      animation: shadow-two 0.6s ease-out;
+      transform: perspective(1300px) rotateY(20deg) translateZ(120px) scale(0.5);
+   }
+
+   @keyframes shadow-two {
+      0% {
+         transform: translate(0);
+      }
+
+      20% {
+         transform: perspective(1300px) rotateY(20deg) translateZ(310px)
+            scale(0.5);
+      }
+
+      100% {
+         transform: perspective(1300px) rotateY(20deg) translateZ(120px)
+            scale(0.5);
+      }
+   }
+
+   .container.active .main:hover + .shadow.one {
+      transform: perspective(1300px) rotateY(20deg) translateZ(230px) scale(0.5);
+   }
+
+   .container.active .main:hover {
+      transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
+   }
+}
