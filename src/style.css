@@ -314,3 +314,7 @@ ul {
 .about-dir:hover {
    color: #e0dd2d;
  }
+
+ .links::hover{
+    text-decoration: underline;
+ }
